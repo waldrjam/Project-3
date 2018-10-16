@@ -148,5 +148,8 @@ print("2. Average requests made:\n","Per Day:",avgdays,"\n","Per Week:",avgweeks
 print("3. Percentage of requests that were not successful: ",code4xx/total*100,"%")
 print("4. Percentage of requests that were redirected elsewhere: ",code4xx/total*100,"%")
 print("5. The most requested files where:",most_files)
-print("6. The least requested files where:",least_files)
+if len(least_files) > 20:
+	print("6. More than twenty files were requested only",min,"time(s)")
+else:	
+	print("6. The least requested files where:",least_files)
 
