@@ -71,6 +71,15 @@ def num_of_days(f,l):
 	d1 = date(l_year, l_month, l_day)
 	delta = d1 - d0
 	return (delta.days)
+	
+def save_to_file(value, key):
+	##creates a new file with the name of the key 
+	##this should seperate each month of log file into their own thing
+	filename = "%s.txt" % key
+	f = open(filename , 'wb')
+	with open(filename, 'w') as filehandle:  
+		for line in value:
+			filehandle.write('%s\n' % line)
 
 #Checks if local_copy.log already exists, if it does get_log does not run.
 file_name = 'local_copy.log'
@@ -129,6 +138,9 @@ for line in fh:
 		else:
 			files[breakup[6]] = 1
 
+for key in dates.keys():
+	save_to_file(dates[key],key)
+	
 #removes open bracket
 firstdate = firstdate.replace(firstdate[0],"")
 lastdate = lastdate.replace(lastdate[0],"")
