@@ -85,12 +85,27 @@ total = 0
 firstdate = ""
 lastdate = ""
 files={}
+dates={
+	"Oct":[],
+	"Nov":[],
+	"Dec":[],
+	"Jan":[],
+	"Feb":[],
+	"Mar":[],
+	"Apr":[],
+	"May":[],
+	"Jun":[],
+	"Jul":[],
+	"Aug":[],
+	"Sep":[],
+}
 
 fh = open(file_name)
 for line in fh:
-	if len(line) >= 50:
-		#splits line into a list
-		breakup = line.split()
+	#splits line into a list
+	breakup = line.split()
+	if len(breakup) >= 10:
+		monthsplit=line.split('/')
 		#Firstdate should only update the first time around, 
 		#Lastdate should update every time until the for loop ends
 		if total >= 1:
@@ -98,6 +113,9 @@ for line in fh:
 		elif total <= 0:
 			firstdate = breakup[3]
 		total += 1
+		
+		dates[monthsplit[1]].append(line)
+		
 		#adds 1 to 4xx or 3xx if 4 or 3 appear in the first spot in the second to last string
 		breakup[6]
 		if breakup[-2][0] == '4':
@@ -152,4 +170,3 @@ if len(least_files) > 20:
 	print("6. More than twenty files were requested only",min,"time(s)")
 else:	
 	print("6. The least requested files where:",least_files)
-
