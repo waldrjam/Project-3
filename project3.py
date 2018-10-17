@@ -63,10 +63,8 @@ def num_of_days(f,l):
 		l_month = 11
 	elif l[1] == 'Dec':
 		l_month = 12
-	
 	#find out the number of days between two points
 	from datetime import date
-	
 	d0 = date(f_year, f_month, f_day)
 	d1 = date(l_year, l_month, l_day)
 	delta = d1 - d0
@@ -113,6 +111,7 @@ fh = open(file_name)
 for line in fh:
 	#splits line into a list
 	breakup = line.split()
+	#the correct data from log when split should have 10 parts
 	if len(breakup) >= 10:
 		monthsplit=line.split('/')
 		#Firstdate should only update the first time around, 
@@ -123,6 +122,7 @@ for line in fh:
 			firstdate = breakup[3]
 		total += 1
 		
+		#adds the line to the value list for the month in the date dictionary for the month in monthsplit[1]
 		dates[monthsplit[1]].append(line)
 		
 		#adds 1 to 4xx or 3xx if 4 or 3 appear in the first spot in the second to last string
@@ -138,6 +138,7 @@ for line in fh:
 		else:
 			files[breakup[6]] = 1
 
+#runs the save_to_file func for each key in dates
 for key in dates.keys():
 	save_to_file(dates[key],key)
 	
@@ -151,10 +152,14 @@ lastdate = lastdate.replace(":","/")
 firstdate = firstdate.split('/')
 lastdate = lastdate. split('/')
 
+#runs the num_of_days func for first and last date
 totaldays = num_of_days(firstdate, lastdate)
 avgdays = total/totaldays
 avgweeks = total/(totaldays/7)
 avgmonth = total/(totaldays/365)/12
+
+code4xx_per = code4xx/total*100
+code3xx_per = code3xx/total*100
 
 least_files=[]
 most_files=[]
@@ -166,16 +171,13 @@ for value in files.values():
 		max = value
 	if value < min:
 		min = value
-##Since there maybe a tie in least or most any that qualify for either are added to a list.		
+##Since there may be a tie in least or most any that qualify for either are added to a list.		
 for key, value in files.items():
 	if value == min:
 		least_files.append(key)
 	if value == max:
 		most_files.append(key)
-
-code4xx_per = code4xx/total*100
-code3xx_per = code3xx/total*100
-
+		
 least_files_total = len(least_files)
 		
 print("1. Total requests made in the time period represented in the log: ",total)
