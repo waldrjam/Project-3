@@ -196,7 +196,7 @@ log_results.write("2. Average requests made:\nPer Day: %s\n" % avgdays)
 log_results.write("Per Week: %s\n" % avgweeks)
 log_results.write("Per Month: %s\n" % avgmonth)
 log_results.write("3. Percentage of requests that were not successful: %s\n" % code4xx_per)
-log_results.write("4. Percentage of requests that were redirected elsewhere: %s\n" % code4xx_per)
+log_results.write("4. Percentage of requests that were redirected elsewhere: %s\n" % code3xx_per)
 log_results.write("5. The most requested file was: %s " % most_files,)
 log_results.write("at %s requests.\n" % max)
 if least_files_total > 10:
