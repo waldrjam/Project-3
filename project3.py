@@ -154,7 +154,7 @@ lastdate = lastdate. split('/')
 totaldays = num_of_days(firstdate, lastdate)
 avgdays = total/totaldays
 avgweeks = total/(totaldays/7)
-avgmonth = total/12
+avgmonth = total/(totaldays/365)/12
 
 least_files=[]
 most_files=[]
