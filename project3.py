@@ -173,12 +173,34 @@ for key, value in files.items():
 	if value == max:
 		most_files.append(key)
 
+code4xx_per = code4xx/total*100
+code3xx_per = code3xx/total*100
+
+least_files_total = len(least_files)
+		
 print("1. Total requests made in the time period represented in the log: ",total)
 print("2. Average requests made:\n","Per Day:",avgdays,"\n","Per Week:",avgweeks,"\n","Per Month:",avgmonth)
-print("3. Percentage of requests that were not successful: ",code4xx/total*100,"%")
-print("4. Percentage of requests that were redirected elsewhere: ",code4xx/total*100,"%")
-print("5. The most requested files where:",most_files)
-if len(least_files) > 20:
-	print("6. More than twenty files were requested only",min,"time(s)")
+print("3. Percentage of requests that were not successful: ",code4xx_per,"%")
+print("4. Percentage of requests that were redirected elsewhere: ",code3xx_per,"%")
+print("5. The most requested files where:",most_files,"at",max,"requests.")
+if least_files_total > 10:
+	print("6.",least_files_total,"files were all request the least at",min,"time each.")
 else:	
 	print("6. The least requested files where:",least_files)
+print("These results will be writen to a file name log_results.txt")
+
+## write to log_results.write
+log_results = open("log_results.txt", "w")
+log_results.write("1. Total requests made in the time period represented in the log: %s\n" % total)
+log_results.write("2. Average requests made:\nPer Day: %s\n" % avgdays)
+log_results.write("Per Week: %s\n" % avgweeks)
+log_results.write("Per Month: %s\n" % avgmonth)
+log_results.write("3. Percentage of requests that were not successful: %s\n" % code4xx_per)
+log_results.write("4. Percentage of requests that were redirected elsewhere: %s\n" % code4xx_per)
+log_results.write("5. The most requested file was: %s " % most_files,)
+log_results.write("at %s requests.\n" % max)
+if least_files_total > 10:
+	log_results.write("6. %s " % least_files_total)
+	log_results.write("files were all requested the least at %s time each." % min)
+else:
+	log_results.write("6. The least requested files where: %s" % least_files)
